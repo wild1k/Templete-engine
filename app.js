@@ -10,43 +10,108 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./output/htmlRenderer");
 
+const team = [];
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
-function devTeam() {
+
+function buildTeam() {
     inquirer.prompt({
-        type: "list",
+        type: "checkbox",
         name: "choice",
-        message: "What do you wanna do?",
-        choices: ["Create a trainer", "Catch a pokemon", "Random pokemon", "Have a battle", "Visit the Pokemon Center", "Quit"]
-    }).then(function ({ choice }) {
-        switch (choice) {
-            case "Create a trainer":
-                createTrainer();
+        message: "What roles would you like to add to your team?",
+        choices: ["Manager", "Engineer", "Intern", "finished"]
+    }).then(function (data) {
+        console.log(data);
+        
+        switch (data.choice[0]) {
+            case "Manager":
+                addManager();
                 break;
 
-            case "Catch a pokemon":
-                catchPokemon();
+            case "Engineer":
+                addEngineer();
                 break;
 
-            case "Random pokemon":
-                findRandomPokemon();
-                break;
-
-            case "Have a battle":
-                battlePokemon();
-                break;
-
-            case "Visit the Pokemon Center":
-                healAllPokemon();
+            case "Intern":
+                addIntern();
                 break;
 
             default:
-                console.log("thanks for playing!")
+                console.log("You finished making your team!")
                 break;
         }
+   
     })
+
 }
+
+
+  
+
+    function addManager(){
+    inquirer.prompt([
+    {
+        type: "input",
+        name: "name",
+        message: "Manager's name?",
+    },
+    {
+        type: "input",
+        name: "id",
+        message: "Manager's id?",
+    },
+    {
+        type: "input",
+        name: "email",
+        message: "Manager's email?",
+    },
+    {
+        type: "input",
+        name: "officeNumber",
+        message: "Manager's office Number?",
+    },
+]).then(function(answers){
+    const teamManager = new Manager(answers.name, answers.id, answers.email);
+    team.push(teamManager);
+    console.log(`New Manager ${JSON.stringify(teamManager)} is added`);
+    buildTeam();
+    
+})};
+
+    function addEngineer(){
+    inquirer.prompt([
+    {
+        type: "input",
+        name: "name",
+        message: "Engineer's name?",
+    },
+    {
+        type: "input",
+        name: "id",
+        message: "Engineer's id?",
+    },
+    {
+        type: "input",
+        name: "email",
+        message: "Engineer's email?",
+    },
+    {
+        type: "input",
+        name: "GitHubUser",
+        message: "Engineer's GitHub username?",
+    },
+]).then(function(answers){
+    const teamEngineer = new Engineer(answers.name, answers.id, answers.email, answers.GitHubUser);
+    team.push(teamEngineer);
+    console.log(`New Engineer ${teamEngineer} is added`);
+    buildTeam();
+    
+})};
+
+buildTeam();
+
+
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
