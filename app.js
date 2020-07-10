@@ -15,8 +15,8 @@ const team = [];
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
-function buildTeam() {
-    inquirer.prompt({
+async function buildTeam() {
+   await inquirer.prompt({
         type: "checkbox",
         name: "choice",
         message: "What roles would you like to add to your team?",
@@ -39,6 +39,7 @@ function buildTeam() {
 
             default:
                 console.log("You finished making your team!")
+                renderPage();
                 break;
         }
    
@@ -104,12 +105,55 @@ function buildTeam() {
 ]).then(function(answers){
     const teamEngineer = new Engineer(answers.name, answers.id, answers.email, answers.GitHubUser);
     team.push(teamEngineer);
-    console.log(`New Engineer ${teamEngineer} is added`);
+    console.log(`New Engineer ${JSON.stringify(teamEngineer)} is added`);
     buildTeam();
     
 })};
 
-buildTeam();
+    function addIntern(){
+    inquirer.prompt([
+    {
+        type: "input",
+        name: "name",
+        message: "Intern's name?",
+    },
+    {
+        type: "input",
+        name: "id",
+        message: "Intern's id?",
+    },
+    {
+        type: "input",
+        name: "email",
+        message: "Intern's email?",
+    },
+    {
+        type: "input",
+        name: "school",
+        message: "Intern's school?",
+    },
+]).then(function(answers){
+    const teamIntern = new Intern(answers.name, answers.id, answers.email, answers.school);
+    team.push(teamIntern);
+    console.log(`New Intern ${JSON.stringify(teamIntern)} is added`);
+    buildTeam();
+    
+})};
+
+function renderPage(){
+    var writeFile = render(team);
+    console.log(writeFile);
+    fs.writeFile("main.html", writeFile, function(err) {
+        if(err){
+            return console.log(err);
+        }
+        console.log("success!")
+    }); 
+}
+async function start(){
+    await buildTeam();
+}
+start()
 
 
 // After the user has input all employees desired, call the `render` function (required
