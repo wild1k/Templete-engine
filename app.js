@@ -142,8 +142,8 @@ async function buildTeam() {
 
 function renderPage(){
     var writeFile = render(team);
-    console.log(writeFile);
-    fs.writeFile("main.html", writeFile, function(err) {
+    console.log(outputPath);
+    fs.writeFile(outputPath, writeFile, function(err) {
         if(err){
             return console.log(err);
         }

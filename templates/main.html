@@ -10,25 +10,29 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Montserrat+Subrayada:wght@700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    
     <script src="https://kit.fontawesome.com/c502137733.js"></script>
     
 </head>
 
 <body>
-    <div class="container-fluid jumbotron" id="header">
+    <div class="container-fluid jumbotron" style="font-family:'Montserrat Subrayada', sans-serif; background-color: rgb(23, 149, 180);
+    color: rgb(10, 55, 92)">
         <div class="row">
             <div class="col-12  mb-3 team-heading">
-                <h1 class="text-center">My Team</h1>
+                <h1 class="text-center" style= "font-family:'Montserrat Subrayada', sans-serif">My Team</h1>
             </div>
         </div>
     </div>
-    <div id="backImg">
+    <div  style="background-image: url(https://previews.123rf.com/images/monsitj/monsitj1901/monsitj190100027/118032542-programming-code-abstract-technology-background-of-software-developer-and-computer-script.jpg);
+    background-repeat: no-repeat;
+    background-size: 100%">
     <div class="container">
         <div class="row">
-            <div class="team-area col-12 d-flex justify-content-center">
+            <div class="team-area col-12">
                 {{ team }}
             </div>
+
         </div>
     </div>
 </div>
